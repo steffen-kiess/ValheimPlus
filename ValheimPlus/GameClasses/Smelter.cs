@@ -53,41 +53,8 @@ namespace ValheimPlus.GameClasses
         {
             Smelter smelter = __instance; // allowing access to local function
 
-            if (__instance.m_name.Equals(SmelterDefinitions.KilnName))
-            {
-                if (Configuration.Current.Kiln.IsEnabled)
-                {
-                    if (Configuration.Current.Kiln.autoDeposit)
-                    {
-                        bool result = spawn(Configuration.Current.Kiln.autoDepositRange);
-                        return result;
-                    }
-                }
-            }
-            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
-            {
-                if (Configuration.Current.Smelter.IsEnabled)
-                {
-                    if (Configuration.Current.Smelter.autoDeposit)
-                    {
-                        bool result = spawn(Configuration.Current.Smelter.autoDepositRange);
-                        return result;
-                    }
-                }
-            }
-            else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
-            {
-                if (Configuration.Current.Furnace.IsEnabled)
-                {
-                    if (Configuration.Current.Furnace.autoDeposit)
-                    {
-                        bool result = spawn(Configuration.Current.Furnace.autoDepositRange);
-                        return result;
-                    }
-                }
-            }
-
-            bool spawn(float autoDepositRange)
+            //bool spawn(float autoDepositRange)
+            System.Func<float, bool> spawn = (autoDepositRange =>
             {
                 if (autoDepositRange >= 50)
                 {
@@ -130,6 +97,40 @@ namespace ValheimPlus.GameClasses
                 }
 
                 return true;
+            });
+
+            if (__instance.m_name.Equals(SmelterDefinitions.KilnName))
+            {
+                if (Configuration.Current.Kiln.IsEnabled)
+                {
+                    if (Configuration.Current.Kiln.autoDeposit)
+                    {
+                        bool result = spawn(Configuration.Current.Kiln.autoDepositRange);
+                        return result;
+                    }
+                }
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.SmelterName))
+            {
+                if (Configuration.Current.Smelter.IsEnabled)
+                {
+                    if (Configuration.Current.Smelter.autoDeposit)
+                    {
+                        bool result = spawn(Configuration.Current.Smelter.autoDepositRange);
+                        return result;
+                    }
+                }
+            }
+            else if (__instance.m_name.Equals(SmelterDefinitions.FurnaceName))
+            {
+                if (Configuration.Current.Furnace.IsEnabled)
+                {
+                    if (Configuration.Current.Furnace.autoDeposit)
+                    {
+                        bool result = spawn(Configuration.Current.Furnace.autoDepositRange);
+                        return result;
+                    }
+                }
             }
 
             return true;
